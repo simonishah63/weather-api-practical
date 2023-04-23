@@ -57,7 +57,7 @@ Start the local development server
 
 The api can be accessed at [http://127.0.0.1:8000/api](http://127.0.0.1:8000/api).
 
-### Install redis for your system
+### Install redis for your system and start redis
 
 Link [https://redis.io/docs/getting-started/installation/](https://redis.io/docs/getting-started/installation/).
 
