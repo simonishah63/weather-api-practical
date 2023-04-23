@@ -1,0 +1,106 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Weather API Documentation",
+        "description": "API Documentation - Weather API",
+        "contact": {
+            "email": "simonishah63@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/city": {
+            "post": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Create New City",
+                "description": "Create New City",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "City Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Telang"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New City Created Successfully!'",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/fetch-weather/{city}": {
+            "post": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Fetch weather for city",
+                "description": "Provide list of city along with weather data",
+                "operationId": "fetch-weather",
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "City Name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Telang"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "City with weather info fetched successfully!'",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "City with weather info not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Weather Api",
+            "description": "API Endpoints of weather Api"
+        }
+    ]
+}
