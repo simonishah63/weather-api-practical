@@ -2,12 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\CityInterface;
 use App\Models\City;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Redis;
 
-class CityRepository
+class CityRepository implements CityInterface
 {
     /**
      * Create New City.
