@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Repositories\CityRepository;
 use App\Helpers\WeatherHelper;
 use App\Models\City;
-use Carbon\Carbon;
+use App\Repositories\CityRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 uses(Tests\TestCase::class, RefreshDatabase::class, WithFaker::class);
 
@@ -18,10 +17,9 @@ it('test Helper function for fetch weather information', function () {
     $this->artisan('migrate');
     $this->artisan('db:seed');
     $data = City::factory()->create();
-    $response = $this->weatherHelper->fetchWeather($data["name"]);
+    $response = $this->weatherHelper->fetchWeather($data['name']);
     expect($response)->toBeBool();
 });
-
 
 it('test Repository function for fetch weather information for a particular city', function () {
     $request = new \Illuminate\Http\Request();

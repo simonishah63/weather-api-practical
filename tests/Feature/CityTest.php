@@ -2,8 +2,6 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use App\Models\City;
-use App\Models\State;
 
 uses(WithFaker::class, RefreshDatabase::class);
 
@@ -12,7 +10,7 @@ beforeEach(function () {
         'name' => $this->faker->name,
     ];
     $this->headerOptions = [
-        'Accept' => 'application/json'
+        'Accept' => 'application/json',
     ];
 });
 
@@ -20,9 +18,9 @@ it('Test City Name is Required', function () {
     $response = $this->postJson('/api/v1/city', [], $this->headerOptions);
     $response->assertStatus(422)
         ->assertJson([
-            "message" => [
-                "name" => [
-                    "The name field is required."
+            'message' => [
+                'name' => [
+                    'The name field is required.',
                 ],
             ],
         ]);
@@ -33,9 +31,9 @@ it('Test City Unique Name Validation', function () {
     $response = $this->postJson('/api/v1/city', ['name' => 'Telang'], $this->headerOptions);
     $response->assertStatus(422)
         ->assertJson([
-            "message" => [
-                "name" => [
-                    "The name has already been taken."
+            'message' => [
+                'name' => [
+                    'The name has already been taken.',
                 ],
             ],
         ]);
@@ -46,19 +44,18 @@ it('Test City Created Successfully', function () {
     $response = $this->postJson('/api/v1/city', $this->requestArr, $this->headerOptions);
     $response->assertStatus(200)
         ->assertJsonStructure(
-        [
-            'data' => [
-                'id',
-                'uuid',
-                'name',
-                'created_at',
-                'updated_at',
-            ],
-            "message",
-            "status",
-            "errors"
-        ]
-    );
-   
-});
+            [
+                'data' => [
+                    'id',
+                    'uuid',
+                    'name',
+                    'created_at',
+                    'updated_at',
+                ],
+                'message',
+                'status',
+                'errors',
+            ]
+        );
 
+});

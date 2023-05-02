@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\City;
 use App\Helpers\WeatherHelper;
+use App\Models\City;
 
 class CityObserver
 {
@@ -14,7 +14,7 @@ class CityObserver
     {
         $this->weatherhelper = $weatherhelper;
     }
-    
+
     /**
      * Handle the City "created" event.
      */

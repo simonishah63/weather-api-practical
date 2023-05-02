@@ -22,6 +22,6 @@ class City extends Model
     protected $fillable = [
         'uuid',
         'name',
-        'weather_data'
+        'weather_data',
     ];
 }

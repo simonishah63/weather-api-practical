@@ -3,9 +3,9 @@
 namespace App\Helpers;
 
 use App\Models\City;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Arr;
 use Exception;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 
 class WeatherHelper
 {
@@ -19,7 +19,6 @@ class WeatherHelper
      */
     private $apiKey;
 
-
     public function __construct()
     {
         $this->apiUrl = env('WEATHER_API_URL');
@@ -28,16 +27,16 @@ class WeatherHelper
 
     /**
      * Call weather API
-     * 
-     * @param string $url
-     * @param array $sendData
+     *
+     * @param  string  $url
+     * @param  array  $sendData
      * @return object
      */
     public function apiCall($url, $sendData)
     {
         try {
             $sendData = Arr::add($sendData, 'appid', $this->apiKey);
-            $response = Http::get($this->apiUrl . $url, $sendData);
+            $response = Http::get($this->apiUrl.$url, $sendData);
 
             if (in_array($response->status(), [200, 201])) {
                 return $response->json();
@@ -48,20 +47,20 @@ class WeatherHelper
     }
 
     /**
-     * 
      * Fetch 5 days weather info for city
+     *
      * @return object
      */
     public function fetchWeather($cityName)
     {
         $requestData = [
-            'q' => $cityName
+            'q' => $cityName,
         ];
-       
+
         $weatherData = $this->apiCall('/data/2.5/forecast', $requestData);
-        
+
         City::updateOrCreate(
-            ['name' => $cityName], 
+            ['name' => $cityName],
             ['weather_data' => json_encode($weatherData)]
         );
 

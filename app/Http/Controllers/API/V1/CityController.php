@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CityRequest;
-use App\Repositories\CityRepository;
 use App\Models\City;
+use App\Repositories\CityRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
 
@@ -14,10 +14,12 @@ use Illuminate\Http\Response;
  *     description="API Documentation - Weather API",
  *     version="1.0.0",
  *     title="Weather API Documentation",
+ *
  *     @OA\Contact(
  *         email="simonishah63@gmail.com"
  *     ),
  * )
+ *
  * @OA\Server(
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
@@ -41,11 +43,12 @@ class CityController extends Controller
      * @var cityRepository
      */
     public $cityRepository;
-    
+
     public function __construct(CityRepository $cityRepository)
     {
         $this->cityRepository = $cityRepository;
     }
+
     /**
      * @OA\POST(
      *     path="/api/v1/city",
@@ -53,21 +56,26 @@ class CityController extends Controller
      *     summary="Create New City",
      *     description="Create New City",
      *     operationId="store",
+     *
      *     @OA\Parameter(
      *          name="name",
      *          in="query",
      *          required=true,
      *          description="City Name",
+     *
      *          @OA\Schema(
      *              type="string"
      *          ),
      *          example="Telang",
      *      ),
-     *      @OA\Response(response=200, description="New City Created Successfully!'",       
+     *
+     *      @OA\Response(response=200, description="New City Created Successfully!'",
+     *
      *          @OA\MediaType(
      *             mediaType="application/json",
      *         )
      *      ),
+     *
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      *      @OA\Response(response=422, description="Unprocessable Content"),
@@ -78,6 +86,7 @@ class CityController extends Controller
     {
         try {
             $book = $this->cityRepository->create($request->all());
+
             return $this->responseSuccess($book, 'New City Created Successfully!');
         } catch (\Exception $exception) {
             return $this->responseError(null, $exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -91,21 +100,26 @@ class CityController extends Controller
      *     summary="Fetch weather for city",
      *     description="Provide list of city along with weather data",
      *     operationId="fetch-weather",
+     *
      *     @OA\Parameter(
      *          name="city",
      *          in="path",
      *          required=false,
      *          description="City Name",
+     *
      *          @OA\Schema(
      *              type="string"
      *          ),
      *          example="Telang",
      *      ),
-     *      @OA\Response(response=200, description="City with weather info fetched successfully!'",       
+     *
+     *      @OA\Response(response=200, description="City with weather info fetched successfully!'",
+     *
      *          @OA\MediaType(
      *             mediaType="application/json",
      *         )
      *      ),
+     *
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="City with weather info not found"),
      *      @OA\Response(response=500, description="Internal Server Error"),
@@ -115,9 +129,10 @@ class CityController extends Controller
     {
         try {
             $cityInfo = $this->cityRepository->fetchWeather($cityName);
-            if(empty($cityInfo)) {
+            if (empty($cityInfo)) {
                 return $this->responseError(null, 'City with weather info not found', Response::HTTP_NOT_FOUND);
             }
+
             return $this->responseSuccess($cityInfo, 'City with weather info fetched successfully!');
         } catch (\Exception $exception) {
             return $this->responseError(null, $exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
